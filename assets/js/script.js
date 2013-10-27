@@ -2,7 +2,7 @@
 var data = null;
 
 // Fetch the data 
-$.getJSON("data.json",function(in_data){
+$.getJSON("data/disasters.json",function(in_data){
   data = in_data;
   fillTypes("#types-select");
   //drawRegionsMap();

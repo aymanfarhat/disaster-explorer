@@ -1,0 +1,1 @@
+{ "name": "fetch_disaster_db", "version": "0.0.1", "dependencies": {"cheerio": "0.12.3"}}
