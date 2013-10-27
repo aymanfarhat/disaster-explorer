@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+	<head>
+        <meta charset="UTF-8">
+        <title>Disaster Explorer</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="./assets/css/bootstrap-combined.no-icons.min.css">
+        <link rel="stylesheet" href="http://bootswatch.com/2/cyborg/bootstrap.min.css">
+        <link rel="stylesheet" href="./assets/css/font-awesome.min.css">
+        <link rel="stylesheet" href="./assets/css/style.css">
+	</head>
+	 <body>
+        <div class="navbar navbar-inverse navbar-fixed-top">
+          <div class="navbar-inner">
+            <div class="container-fluid">
+              <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="brand" href="#">Disaster Explorer - Explore death frequency from disasters across countries</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="container-fluid center-contain">
+        <div class="span4">
+          <div class="well sidebar-nav">
+            <label>From</label>
+            <input type="date" id="from" />
+            <label>To</label>
+            <input type="date" id="to" />
+            <label>Type</label>
+            <select id="types-select"><option value="empty">Select Subtype</option></select>
+            <input class="btn" type="submit" value="Refresh" />
+          </div><!--/.well -->
+        </div><!--/span-->
+        <div class="span8">
+          <div class="row-fluid">
+            <div class="span12 well">
+              <div id="the_map">Select your options from the left.</div>
+            </div><!--/span-->
+            </div>
+        </div><!--/span-->
+          </div><!--/row-->
+          <hr>
+          <footer>
+            <p>&copy; Ayman Farhat 2013</p>
+          </footer>
+        </div><!--/.fluid-container-->
+
+    <!-- Le javascript
+    ================================================== -->
+    <script src="./assets/js/jquery-2.0.3.min.js"></script>
+    <script src="./assets/js/bootstrap.min.js"></script>
+    <script type='text/javascript' src='https://www.google.com/jsapi'></script>
+    <script src="./assets/js/script.js"></script>
+  </body>
+</html>
