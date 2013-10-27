@@ -25,19 +25,21 @@
         <div class="container-fluid center-contain">
         <div class="span4">
           <div class="well sidebar-nav">
-            <label>From</label>
-            <input type="date" id="from" />
-            <label>To</label>
-            <input type="date" id="to" />
-            <label>Type</label>
-            <select id="types-select"><option value="empty">Select Subtype</option></select>
-            <input class="btn" type="submit" value="Refresh" />
+            <form action="#" id="options-form">
+                <label>From</label>
+                <input type="date" name="from" value="1900-1-1" />
+                <label>To</label>
+                <input type="date" name="to" value="2013-1-1" />
+                <label>Type</label>
+                <select id="types-select" name="type"><option value="empty">Select Type</option></select>
+                <input class="btn" type="submit" value="Refresh" />
+            </form>
           </div><!--/.well -->
         </div><!--/span-->
         <div class="span8">
           <div class="row-fluid">
             <div class="span12 well">
-              <div id="the_map">Select your options from the left.</div>
+              <div id="the_map"></div>
             </div><!--/span-->
             </div>
         </div><!--/span-->
