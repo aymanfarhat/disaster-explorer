@@ -2,10 +2,14 @@
 var data = null;
 
 // Fetch the data 
+$("#data-loader").css("display","block");
 $.getJSON("data/disasters.json",function(in_data){
   data = in_data;
   fillTypes("#types-select");
   drawRegionsMap([]);
+  
+  // Remove the loader
+  $("#data-loader").css("display","none");
  });
 
 // Initialize the map
@@ -21,9 +25,13 @@ $("#options-form").submit(function(){
         formObj[v.name] = v.value;
     });
 
-    //console.log(formObj);
-    var map_data = getMapDataByCriteria(formObj);
-    drawRegionsMap(map_data);
+    if(formObj.from.length > 0 && formObj.to.length > 0 && formObj.type.length > 0){
+        var map_data = getMapDataByCriteria(formObj);
+        drawRegionsMap(map_data);
+    }
+    else{
+        alert("Invalid input");
+    }
 
     return false;
 });
@@ -73,7 +81,6 @@ function getMapDataByCriteria(criteria){
     });
     
     // Convert the object to an array of arrays
-    console.log(results);
     var map_data = [];
     for(var key in results){
         if(results.hasOwnProperty(key)){
@@ -116,3 +123,4 @@ function fieldStringDateToDate(str_date){
     arr_date = str_date.split("-"); 
     return new Date(parseInt(arr_date[0]),parseInt(arr_date[1]),parseInt(arr_date[2]));
 }
+

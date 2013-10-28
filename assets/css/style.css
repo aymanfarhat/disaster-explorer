@@ -1,1 +1,4 @@
 .center-contain{margin-top: 75px;}
+#data-loader, #form-loader{display:none;}
+#data-loader .icon-refresh{font-size:40px;}
+#form-loader .icon-refresh{font-size:18px;}

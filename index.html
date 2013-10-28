@@ -17,7 +17,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
               </button>
-              <a class="brand" href="#">Disaster Explorer - Explore death frequency from disasters across countries</a>
+              <a class="brand" href="#">Disaster Explorer - Explore death toll concentration from disasters across countries</a>
             </div>
           </div>
         </div>
@@ -27,18 +27,20 @@
           <div class="well sidebar-nav">
             <form action="#" id="options-form">
                 <label>From</label>
-                <input type="date" name="from" value="1900-1-1" />
+                <input type="date" name="from" value="1900-01-01" />
                 <label>To</label>
-                <input type="date" name="to" value="2013-1-1" />
+                <input type="date" name="to" value="2013-01-01" />
                 <label>Type</label>
-                <select id="types-select" name="type"><option value="empty">Select Type</option></select>
+                <select id="types-select" name="type"><option value="">Select Type</option></select>
                 <input class="btn" type="submit" value="Refresh" />
             </form>
+            <div id="form-loader"><i class="icon-refresh icon-spin"></i></div>
           </div><!--/.well -->
         </div><!--/span-->
         <div class="span8">
           <div class="row-fluid">
             <div class="span12 well">
+              <div id="data-loader"><i class="icon-refresh icon-spin"></i></div>
               <div id="the_map"></div>
             </div><!--/span-->
             </div>
