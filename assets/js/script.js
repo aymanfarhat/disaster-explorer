@@ -3,11 +3,13 @@ var data = null;
 
 // Fetch the data 
 $("#data-loader").css("display","block");
+
 $.getJSON("data/disasters.json",function(in_data){
   data = in_data;
-  fillTypes("#types-select");
+
+  processRawData("#types-select");
   drawRegionsMap([]);
-  
+
   // Remove the loader
   $("#data-loader").css("display","none");
  });
@@ -26,8 +28,12 @@ $("#options-form").submit(function(){
     });
 
     if(formObj.from.length > 0 && formObj.to.length > 0 && formObj.type.length > 0){
-        var map_data = getMapDataByCriteria(formObj);
-        drawRegionsMap(map_data);
+        $("#form-loader").css("display","block");
+
+        getMapDataByCriteria(formObj, function(map_data){
+            drawRegionsMap(map_data);
+            $("#form-loader").css("display","none");
+        });
     }
     else{
         alert("Invalid input");
@@ -50,10 +56,9 @@ function drawRegionsMap(countries) {
     chart.draw(data, options);
 };
 
-
 // Get all the data that match the criteria, formatted to be thrown into the map
 // Naive linear search to compare criteria against all records
-function getMapDataByCriteria(criteria){
+function getMapDataByCriteria(criteria, callback){
     var results = {};
 
     var criteria_start = fieldStringDateToDate(criteria.from).getTime();
@@ -61,21 +66,12 @@ function getMapDataByCriteria(criteria){
     
     // Iterate over all disasters and check if they match criteria
     $.each(data, function(index, disaster){
-        var start = stringToDate(disaster.start).getTime();
-        var end = stringToDate(disaster.end).getTime();
-        var type = disaster.type.toLowerCase();
-
-        if(criteria.type == type && 
-           start >= criteria_start && 
-           end <= criteria_end){
-
-            var kills = (typeof disaster.killed === "string" && disaster.killed !== "null")?parseInt(disaster.killed):0;
-
+        if(criteria.type == disaster.type && disaster.start >= criteria_start && disaster.end <= criteria_end){
             if(typeof results[disaster.country] === "undefined"){
-                results[disaster.country] = kills;
+                results[disaster.country] = disaster.kills;
             }
             else{
-                results[disaster.country] += kills;
+                results[disaster.country] += disaster.kills;
             }
         }
     });
@@ -88,7 +84,32 @@ function getMapDataByCriteria(criteria){
         }
     }
 
-    return map_data;
+    callback.call(null, map_data);
+}
+
+// Format all the object data and fill the types menu
+function processRawData(elStr){
+    var types_list = [];
+    var select = $(elStr);
+    
+    $.each(data, function(index, disaster){
+        var type = disaster.type.toLowerCase();
+        var start = stringToDate(disaster.start).getTime();
+        var end = stringToDate(disaster.end).getTime();
+        var kills =  (typeof disaster.killed === "string" && disaster.killed !== "null")?parseInt(disaster.killed):0;
+
+        // Set the formatted data 
+        data[index].type = type;
+        data[index].start = start;
+        data[index].end = end;
+        data[index].kills = kills;
+
+        // Fill the type menu
+        if(types_list.indexOf(type) == -1){
+            types_list.push(type);
+            select.append("<option value='"+type+"'>"+type+"</option>");
+        }
+    });
 }
 
 // Populate subtype list with values
@@ -123,4 +144,3 @@ function fieldStringDateToDate(str_date){
     arr_date = str_date.split("-"); 
     return new Date(parseInt(arr_date[0]),parseInt(arr_date[1]),parseInt(arr_date[2]));
 }
-
